@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import Button from '@material-ui/core/Button';
+import Link from 'next/link';
 import Hidden from '@material-ui/core/Hidden';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
@@ -184,10 +185,12 @@ function Contact(props) {
         </div>
       </Hidden>
       <Container maxWidth="lg" className={classes.innerWrap}>
-        <IconButton href={routeLink.architect.home} className={classes.backtohome}>
-          <i className="ion-ios-home-outline" />
-          <i className="ion-ios-arrow-round-back" />
-        </IconButton>
+        <Link href={routeLink.architect.home}>
+          <IconButton href={routeLink.architect.home} className={classes.backtohome}>
+            <i className="ion-ios-home-outline" />
+            <i className="ion-ios-arrow-round-back" />
+          </IconButton>
+        </Link>
         <Grid container>
           <Grid item lg={1} xs={12} />
           <Grid item lg={5} xs={12} className={classes.wrapDeco}>
