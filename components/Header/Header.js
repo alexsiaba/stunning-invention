@@ -139,9 +139,13 @@ function Header(props) {
                         </li>
                       ))}
                       <li>
-                        <Button href={routeLink.architect.contact}>
-                          {t('common:architect-landing.header_contact')}
-                        </Button>
+                        <Link href={routeLink.architect.contact}>
+                          <a>
+                            <Button href={routeLink.architect.contact}>
+                              {t('common:architect-landing.header_contact')}
+                            </Button>
+                          </a>
+                        </Link>
                       </li>
                     </Scrollspy>
                   )}

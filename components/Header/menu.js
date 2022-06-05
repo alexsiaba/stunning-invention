@@ -3,7 +3,7 @@ const menu = [
   'services',
   'project',
   'about',
-  'blog'
+  'blog',
 ];
 
 export default menu;
