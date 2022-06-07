@@ -1,7 +1,8 @@
 const link = {
   architect: {
     home: '/',
-    contact: '/contact'
+    contact: '/contact',
+    test: "/test",
   }
 };
 

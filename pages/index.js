@@ -77,32 +77,32 @@ function Landing(props) {
                     <section id="home">
                         <VideoBanner/>
                     </section>
-                    <section id="services" className={classes.spaceTopShort}>
-                        <Services/>
-                    </section>
-                    <section id="project" className={isMobile ? classes.spaceTopShort : classes.spaceTop}>
-                        <Project/>
-                    </section>
-                    <section id="featured" className={isMobile ? classes.spaceTopShort : classes.spaceTop}>
-                        <Featured/>
-                    </section>
-                    <section id="about">
-                        <div className={isTablet ? classes.spaceTopShort : classes.spaceTop}>
-                            <About/>
-                        </div>
-                        <div className={classes.spaceTopShort}>
-                            <Team/>
-                        </div>
-                        <div>
-                            <Counter/>
-                        </div>
-                    </section>
-                    <div id="blog" className={classes.spaceTopShort}>
-                        <Blog/>
-                    </div>
-                    <section id="subscribe" className={classes.spaceTopShort}>
-                        <Subscribe/>
-                    </section>
+                    {/*<section id="services" className={classes.spaceTopShort}>*/}
+                    {/*    <Services/>*/}
+                    {/*</section>*/}
+                    {/*<section id="project" className={isMobile ? classes.spaceTopShort : classes.spaceTop}>*/}
+                    {/*    <Project/>*/}
+                    {/*</section>*/}
+                    {/*<section id="featured" className={isMobile ? classes.spaceTopShort : classes.spaceTop}>*/}
+                    {/*    <Featured/>*/}
+                    {/*</section>*/}
+                    {/*<section id="about">*/}
+                    {/*    <div className={isTablet ? classes.spaceTopShort : classes.spaceTop}>*/}
+                    {/*        <About/>*/}
+                    {/*    </div>*/}
+                    {/*    <div className={classes.spaceTopShort}>*/}
+                    {/*        <Team/>*/}
+                    {/*    </div>*/}
+                    {/*    <div>*/}
+                    {/*        <Counter/>*/}
+                    {/*    </div>*/}
+                    {/*</section>*/}
+                    {/*<div id="blog" className={classes.spaceTopShort}>*/}
+                    {/*    <Blog/>*/}
+                    {/*</div>*/}
+                    {/*<section id="subscribe" className={classes.spaceTopShort}>*/}
+                    {/*    <Subscribe/>*/}
+                    {/*</section>*/}
                     <Footer toggleDir={onToggleDir}/>
                 </main>
                 <Hidden mdDown>

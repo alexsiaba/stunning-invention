@@ -19,6 +19,8 @@ import { withTranslation } from '../../i18n';
 import routeLink from '../../public/text/link';
 import logo from '../../public/images/architect-logo.svg';
 import brand from '../../public/text/brand';
+import { ClickAwayListener, Grow, MenuItem, MenuList, Popper } from "@material-ui/core";
+import Paper from "@material-ui/core/Paper";
 
 let counter = 0;
 function createData(name, url, offset) {
@@ -69,6 +71,16 @@ function Header(props) {
     createData(navMenu[4], '#' + navMenu[4]),
   ]);
   const [openDrawer, setOpenDrawer] = useState(false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  function handleClick(event) {
+    if (anchorEl !== event.currentTarget) {
+      setAnchorEl(event.currentTarget);
+    }
+  }
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   const handleOpenDrawer = () => {
     setOpenDrawer(!openDrawer);
   };
@@ -146,6 +158,53 @@ function Header(props) {
                             </Button>
                           </a>
                         </Link>
+                      </li>
+                      <li>
+                        <Link href={routeLink.architect.test}>
+                            <Button
+                                id="basic-button"
+                                aria-controls={open ? 'basic-menu' : undefined}
+                                aria-haspopup="true"
+                                aria-expanded={open ? 'true' : undefined}
+                                onClick={handleClick}
+                                onMouseOver={handleClick}
+                                href={routeLink.architect.test}
+                            >
+                              {t('common:test')}
+                            </Button>
+                        </Link>
+                        <Popper
+                            open={open}
+                            anchorEl={anchorEl}
+                            role={undefined}
+                            placement="bottom-start"
+                            transition
+                            disablePortal
+                        >
+                          {({ TransitionProps, placement }) => (
+                              <Grow
+                                  {...TransitionProps}
+                                  style={{
+                                    transformOrigin:
+                                        placement === 'bottom-start' ? 'left top' : 'left bottom',
+                                  }}
+                              >
+                                <Paper>
+                                  <ClickAwayListener onClickAway={handleClose}>
+                                    <MenuList
+                                        autoFocusItem={open}
+                                        id="composition-menu"
+                                        aria-labelledby="composition-button"
+                                    >
+                                      <MenuItem onClick={handleClose}>TEST1</MenuItem>
+                                      <MenuItem onClick={handleClose}>TEST2</MenuItem>
+                                      <MenuItem onClick={handleClose}>TEST3</MenuItem>
+                                    </MenuList>
+                                  </ClickAwayListener>
+                                </Paper>
+                              </Grow>
+                          )}
+                        </Popper>
                       </li>
                     </Scrollspy>
                   )}
