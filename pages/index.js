@@ -1,22 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
-import { useTheme, makeStyles } from '@material-ui/core/styles';
+import {makeStyles, useTheme} from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Hidden from '@material-ui/core/Hidden';
-import Header from '../components/Header';
 import VideoBanner from '../components/VideoBanner';
-import Services from '../components/Services';
-import Project from '../components/Project';
-import Featured from '../components/Featured';
-import About from '../components/About';
-import Team from '../components/Team';
-import Counter from '../components/Counter';
-import Blog from '../components/Blog';
-import Subscribe from '../components/SubscribeForm';
-import Footer from '../components/Footer';
-import PageNav from '../components/PageNav';
 import Notification from '../components/Notification';
 import brand from '../public/text/brand';
 
@@ -69,10 +57,10 @@ function Landing(props) {
             </Head>
             <CssBaseline/>
             <div className={classes.mainWrap}>
-                <Header
-                    onToggleDark={onToggleDark}
-                    onToggleDir={onToggleDir}
-                />
+                {/*<Header*/}
+                {/*    onToggleDark={onToggleDark}*/}
+                {/*    onToggleDir={onToggleDir}*/}
+                {/*/>*/}
                 <main className={classes.containerWrap}>
                     <section id="home">
                         <VideoBanner/>
@@ -103,11 +91,11 @@ function Landing(props) {
                     {/*<section id="subscribe" className={classes.spaceTopShort}>*/}
                     {/*    <Subscribe/>*/}
                     {/*</section>*/}
-                    <Footer toggleDir={onToggleDir}/>
+                    {/*<Footer toggleDir={onToggleDir}/>*/}
                 </main>
-                <Hidden mdDown>
-                    <PageNav/>
-                </Hidden>
+                {/*<Hidden mdDown>*/}
+                {/*    <PageNav/>*/}
+                {/*</Hidden>*/}
                 <Notification/>
             </div>
         </React.Fragment>
