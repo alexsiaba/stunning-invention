@@ -2,34 +2,40 @@ const menu = [
   {
     name: "About",
     id: 1,
-    url: "/#",
-    popperMenu: {
-      id: "about-popper",
-    },
+    dropdownList: ["FAQs", "Testimonials", "COVID-19"],
+    href: "/contact",
   },
   {
     name: "House Cleaning Services",
-    // eslint-disable-next-line sort-keys
     id: 2,
-    url: "/#",
+    dropdownList: [
+      "Vacation Home Services",
+      "Carpet Cleaning Services",
+      "Snow Removal Services",
+      "Handyman Services",
+      "Laundry Services",
+      "Move Out Cleaning",
+      "Post Construction Cleaning",
+    ],
+    href: "/contact",
   },
   {
     name: "Commercial Cleaning Services",
-    // eslint-disable-next-line sort-keys
     id: 3,
-    url: "/#",
+    dropdownList: [
+      "Janitorial Services",
+      "Carpet Cleaning",
+      "Office Cleaning",
+      "Vinyl Composition Tile",
+      "Building Maintenance",
+    ],
+    href: "/contact",
   },
   {
     name: "Service Areas",
-    // eslint-disable-next-line sort-keys
     id: 4,
-    url: "/#",
-  },
-  {
-    name: "Contact",
-    // eslint-disable-next-line sort-keys
-    id: 5,
-    url: "/contact",
+    dropdownList: ["Summit County", "Eagle County"],
+    href: "/contact",
   },
 ];
 
