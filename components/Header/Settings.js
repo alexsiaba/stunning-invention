@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import Popover from '@material-ui/core/Popover';
@@ -61,108 +61,124 @@ function Settings(props) {
   const id = open ? 'simple-popover' : undefined;
   const { invert, t } = props;
   return (
-    <div className={classes.setting}>
-      <IconButton
-        aria-describedby={id}
-        aria-label="Settings"
-        onClick={handleClick}
-        className={
-          clsx(
-            classes.icon,
-            open && classes.active,
-            invert && classes.invert
-          )
-        }
-      >
-        <SettingsIcon fontSize="inherit" />
-      </IconButton>
-      <Popover
-        id={id}
-        open={open}
-        anchorEl={anchorEl}
-        onClose={handleClose}
-        container={ctn}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'center',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'center',
-        }}
-      >
-        <List
-          component="nav"
-          className={classes.modeMenu}
-          aria-label="Mode-menu"
-          subheader={(
-            <ListSubheader component="div">
-              {t('common:architect-landing.header_theme')}
-            </ListSubheader>
-          )}
-        >
-          <ListItem>
-            <Typography component="div">
-              <Grid component="label" container alignItems="center" spacing={1}>
-                <Grid item>{t('common:architect-landing.header_light')}</Grid>
-                <Grid item>
-                  <Switch
-                    checked={isDark}
-                    onChange={handleChangeMode}
-                    value={isDark}
-                    inputProps={{ 'aria-label': 'checkbox' }}
-                  />
-                </Grid>
-                <Grid item>{t('common:architect-landing.header_dark')}</Grid>
-              </Grid>
-            </Typography>
-          </ListItem>
-        </List>
-        <Divider />
-        <List
-          component="nav"
-          className={classes.langMenu}
-          aria-label="Language-menu"
-          subheader={(
-            <ListSubheader component="div">
-              {t('common:architect-landing.header_language')}
-            </ListSubheader>
-          )}
-        >
-          {i18n.options.allLanguages && i18n.options.allLanguages.map(val => (
-            <ListItem
-              key={val}
-              role={undefined}
-              dense
-              button
-              onClick={() => handleChangeLang(val)}
-            >
-              <ListItemIcon>
-                <i className={val} />
-              </ListItemIcon>
-              <ListItemText primary={t('common:' + val)} />
-              {i18n.language === val && (
-                <ListItemSecondaryAction>
-                  <CheckIcon color="primary" />
-                </ListItemSecondaryAction>
-              )}
-            </ListItem>
-          ))}
-        </List>
-      </Popover>
-    </div>
+      <div className={classes.setting}>
+          <IconButton
+              aria-describedby={id}
+              aria-label="Settings"
+              className={
+                    clsx(
+                      classes.icon,
+                      open && classes.active,
+                      invert && classes.invert,
+                    )
+                }
+              onClick={handleClick}
+          >
+              <SettingsIcon fontSize="inherit" />
+          </IconButton>
+
+          <Popover
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'center',
+              }}
+              container={ctn}
+              id={id}
+              onClose={handleClose}
+              open={open}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'center',
+              }}
+          >
+              <List
+                  aria-label="Mode-menu"
+                  className={classes.modeMenu}
+                  component="nav"
+                  subheader={(
+                      <ListSubheader component="div">
+                          {t('common:architect-landing.header_theme')}
+                      </ListSubheader>
+                    )}
+              >
+                  <ListItem>
+                      <Typography component="div">
+                          <Grid
+                              alignItems="center"
+                              component="label"
+                              container
+                              spacing={1}
+                          >
+                              <Grid item>
+                                  {t('common:architect-landing.header_light')}
+                              </Grid>
+
+                              <Grid item>
+                                  <Switch
+                                      checked={isDark}
+                                      inputProps={{ 'aria-label': 'checkbox' }}
+                                      onChange={handleChangeMode}
+                                      value={isDark}
+                                  />
+                              </Grid>
+
+                              <Grid item>
+                                  {t('common:architect-landing.header_dark')}
+                              </Grid>
+                          </Grid>
+                      </Typography>
+                  </ListItem>
+              </List>
+
+              <Divider />
+
+              <List
+                  aria-label="Language-menu"
+                  className={classes.langMenu}
+                  component="nav"
+                  subheader={(
+                      <ListSubheader component="div">
+                          {t('common:architect-landing.header_language')}
+                      </ListSubheader>
+                    )}
+              >
+                  {i18n.options.allLanguages ? i18n.options.allLanguages.map((val) => (
+                      <ListItem
+                          button
+                          dense
+                          key={val}
+                          onClick={() => handleChangeLang(val)}
+                          role={undefined}
+                      >
+                          <ListItemIcon>
+                              <i className={val} />
+                          </ListItemIcon>
+
+                          <ListItemText primary={t(`common:${val}`)} />
+
+                          {i18n.language === val && (
+                          <ListItemSecondaryAction>
+                              <CheckIcon color="primary" />
+                          </ListItemSecondaryAction>
+                          )}
+                      </ListItem>
+                  )) : null}
+              </List>
+          </Popover>
+      </div>
   );
 }
 
 Settings.propTypes = {
-  toggleDark: PropTypes.func.isRequired,
-  toggleDir: PropTypes.func.isRequired,
-  t: PropTypes.func.isRequired,
+  toggleDark: PropTypes.func,
+  toggleDir: PropTypes.func,
+  t: PropTypes.func,
   invert: PropTypes.bool,
 };
 
 Settings.defaultProps = {
-  invert: false
+  invert: false,
 };
 
 export default withTranslation(['common', 'architect-landing'])(Settings);
