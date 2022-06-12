@@ -18,6 +18,7 @@ import Popper from "@material-ui/core/Popper";
 // core components
 import { useRouter } from "next/router";
 import Button from "@material-ui/core/Button";
+import Link from "next/link";
 import styles from "./customDropdownStyle";
 
 const useStyles = makeStyles(styles);
@@ -161,7 +162,11 @@ export default function CustomDropdown(props) {
                         onClick={() => handleClose(prop)}
                         className={dropdownItem}
                       >
-                        {prop}
+                        {/* {prop} */}
+                        <Link href="/contact">
+                          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                          <a className={classes.dropdownLink}>{prop}</a>
+                        </Link>
                       </MenuItem>
                     );
                   })}
@@ -190,7 +195,7 @@ CustomDropdown.propTypes = {
     "danger",
     "rose",
   ]),
-  buttonText: PropTypes.node,
+  buttonText: PropTypes.node.isRequired,
   buttonIcon: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   dropdownList: PropTypes.array,
   buttonProps: PropTypes.object,
