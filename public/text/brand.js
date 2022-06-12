@@ -8,6 +8,6 @@ module.exports = {
     projectName: 'Architect',
     url: 'luxireact.ux-maestro.com/architect',
     img: '/static/images/architect-logo.png',
-    notifMsg: 'Donec sit amet nulla sed arcu pulvinar ultricies commodo id ligula.'
-  }
+    notifMsg: 'Donec sit amet nulla sed arcu pulvinar ultricies commodo id ligula.',
+  },
 };
