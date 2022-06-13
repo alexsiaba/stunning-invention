@@ -14,50 +14,45 @@ import { Apps } from "@material-ui/icons";
 import CustomDropdown from "/components/CustomDropdown/CustomDropdown";
 import menu, { myMenu } from "./menu";
 import styles from "./headerLinksStyle";
+import MenuItem from "@material-ui/core/MenuItem";
+import CustomDropdown1 from "../CustomDropdown/CustomDropdown1";
 
 const useStyles = makeStyles(styles);
 console.log("myMenu", myMenu);
 export default function HeaderLinks(props) {
   const classes = useStyles();
   const [headerMenuList] = useState(menu);
-  return (
-    <List className={classes.list}>
-      {/*{headerMenuList.map((item) => (*/}
-      {/*  <ListItem className={classes.listItem}>*/}
-      {/*    <CustomDropdown*/}
-      {/*      noLiPadding*/}
-      {/*      navDropdown*/}
-      {/*      buttonText={item.name}*/}
-      {/*      buttonProps={{*/}
-      {/*        className: classes.navLink,*/}
-      {/*        color: "transparent"*/}
-      {/*      }}*/}
-      {/*      buttonIcon={Apps}*/}
-      {/*      dropdownList={item.dropdownList}*/}
-      {/*    />*/}
-      {/*  </ListItem>*/}
-      {/*))}*/}
-      {myMenu.children.map((item) => (
-        <ListItem className={classes.listItem}>
-          <CustomDropdown
-            key={item.id}
-            noLiPadding
-            navDropdown
-            buttonText={item.href}
-            buttonProps={{
-              className: classes.navLink,
-              color: "transparent"
-            }}
-            buttonIcon={Apps}
-            dropdownList={item.children}
-          />
-        </ListItem>
-      ))}
-      <ListItem className={classes.listItem}>
-        <Link href="/contact">
-          <a className={classes.navLink}>Contact</a>
-        </Link>
-      </ListItem>
-    </List>
-  );
+
+    const myMenuToHeaderLinks = (node, level) => {
+        switch (level) {
+            case 0:
+                return React.createElement(List, {
+                    className: classes.list,
+                    children: node.children.map(child => myMenuToHeaderLinks(child, level+1))
+                })
+            case 1:
+                return React.createElement(ListItem, {
+                    className: classes.listItem,
+                    children: node.children.map(child => myMenuToHeaderLinks(child, level+1))
+                })
+            case 2:
+                return React.createElement(CustomDropdown1, {
+                    buttonText: node.title,
+                    buttonProps: {
+                        className: classes.navLink,
+                        color: "transparent"
+                    },
+                    children: [] //node.children.map(child => myMenuToHeaderLinks(child, level+1))
+                })
+            case 3:
+                return (
+                    <MenuItem key={node.id}>
+                        <Link href={node.href}>
+                            <a className={classes.dropdownLink}>{node.title}</a>
+                        </Link>
+                    </MenuItem>
+                )
+        }
+    }
+  return myMenuToHeaderLinks(myMenu, 0)
 }

@@ -23,7 +23,7 @@ import styles from "./customDropdownStyle";
 const useStyles = makeStyles(styles);
 
 // eslint-disable-next-line react/function-component-definition
-export default function CustomDropdown(props) {
+export default function CustomDropdown1(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleClick = (event) => {
     if (anchorEl && anchorEl.contains(event.target)) {
@@ -58,6 +58,7 @@ export default function CustomDropdown(props) {
     rtlActive,
     noLiPadding,
     navDropdown,
+      children
   } = props;
   const caretClasses = classNames({
     [classes.caret]: true,
@@ -90,91 +91,38 @@ export default function CustomDropdown(props) {
     router.push(path);
   };
   return (
-    <div>
-      <div>
-        <Button
-          aria-label="Notifications"
-          aria-owns={anchorEl ? "menu-list" : null}
-          aria-haspopup="true"
+    <>
+      <Button
           {...buttonProps}
           onClick={handleClick}
-          onDoubleClick={(e) =>
-            handleRouteToPage(e, `${buttonText.toLowerCase()}`)}
-        >
-          {buttonText !== undefined ? buttonText : null}
-          {caret ? <b className={caretClasses} /> : null}
-        </Button>
-      </div>
+          onDoubleClick={e => handleRouteToPage(e, `${buttonText.toLowerCase()}`)}
+      >
+        {buttonText}
+        {caret && <b className={caretClasses} />}
+      </Button>
       <Popper
         open={Boolean(anchorEl)}
         anchorEl={anchorEl}
         transition
         disablePortal
-        placement={
-          dropup
-            ? left
-              ? "top-start"
-              : "top"
-            : left
-            ? "bottom-start"
-            : "bottom"
-        }
         className={classNames({
           [classes.popperClose]: !anchorEl,
           [classes.popperResponsive]: true,
           [classes.pooperNav]: Boolean(anchorEl) && navDropdown,
         })}
       >
-        {() => (
-          <Grow
-            in={Boolean(anchorEl)}
-            id="menu-list"
-            style={
-              dropup
-                ? { transformOrigin: "0 100% 0" }
-                : { transformOrigin: "0 0 0" }
-            }
-          >
-            <Paper className={classes.dropdown}>
-              <ClickAwayListener onClickAway={handleCloseAway}>
-                <MenuList role="menu" className={classes.menuList}>
-                  {dropdownHeader !== undefined ? (
-                    <MenuItem
-                      onClick={() => handleClose(dropdownHeader)}
-                      className={classes.dropdownHeader}
-                    >
-                      {dropdownHeader}
-                    </MenuItem>
-                  ) : null}
-                  {dropdownList.map((prop) => {
-                    return (
-                      <MenuItem
-                        key={prop.id}
-                        onClick={() => handleClose(prop)}
-                        className={dropdownItem}
-                      >
-                        <Link href={prop.href}>
-                          <a className={classes.dropdownLink}>{prop.title}</a>
-                        </Link>
-                      </MenuItem>
-                    );
-                  })}
-                </MenuList>
-              </ClickAwayListener>
-            </Paper>
-          </Grow>
-        )}
+        {children}
       </Popper>
-    </div>
+    </>
   );
 }
 
-CustomDropdown.defaultProps = {
+CustomDropdown1.defaultProps = {
   caret: true,
   hoverColor: "primary",
 };
 
-CustomDropdown.propTypes = {
+CustomDropdown1.propTypes = {
   hoverColor: PropTypes.oneOf([
     "black",
     "primary",
