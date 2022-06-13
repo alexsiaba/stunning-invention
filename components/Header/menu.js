@@ -47,7 +47,7 @@ const pages = [
 
 const buildMenu = (pages) => {
   const indexPage = pages[0];
-  const root = new MenuItem(indexPage.title, []);
+  const root = new MenuItem(indexPage.type, indexPage.title, []);
   const findParent = (root, node) => {
     if (root.title === node.parent) {
       return root;
