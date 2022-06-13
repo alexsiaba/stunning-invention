@@ -7,6 +7,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import VideoBanner from "../components/VideoBanner";
 import Notification from "../components/Notification";
 import brand from "../public/text/brand";
+import Services from "../components/Services";
 
 const sectionMargin = (margin) => margin * 20;
 const useStyles = makeStyles((theme) => ({
@@ -68,9 +69,9 @@ const Landing = function (props) {
           <section id="home">
             <VideoBanner />
           </section>
-          {/* <section id="services" className={classes.spaceTopShort}> */}
-          {/*    <Services/> */}
-          {/* </section> */}
+          <section id="services" className={classes.spaceTopShort}>
+            <Services />
+          </section>
           {/* <section id="project" className={isMobile ? classes.spaceTopShort : classes.spaceTop}> */}
           {/*    <Project/> */}
           {/* </section> */}

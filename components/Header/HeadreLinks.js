@@ -12,28 +12,44 @@ import { Apps } from "@material-ui/icons";
 
 // core components
 import CustomDropdown from "/components/CustomDropdown/CustomDropdown";
-import menu from "./menu";
+import menu, { myMenu } from "./menu";
 import styles from "./headerLinksStyle";
 
 const useStyles = makeStyles(styles);
-
+console.log("myMenu", myMenu);
 export default function HeaderLinks(props) {
   const classes = useStyles();
   const [headerMenuList] = useState(menu);
   return (
     <List className={classes.list}>
-      {headerMenuList.map((item) => (
+      {/*{headerMenuList.map((item) => (*/}
+      {/*  <ListItem className={classes.listItem}>*/}
+      {/*    <CustomDropdown*/}
+      {/*      noLiPadding*/}
+      {/*      navDropdown*/}
+      {/*      buttonText={item.name}*/}
+      {/*      buttonProps={{*/}
+      {/*        className: classes.navLink,*/}
+      {/*        color: "transparent"*/}
+      {/*      }}*/}
+      {/*      buttonIcon={Apps}*/}
+      {/*      dropdownList={item.dropdownList}*/}
+      {/*    />*/}
+      {/*  </ListItem>*/}
+      {/*))}*/}
+      {myMenu.children.map((item) => (
         <ListItem className={classes.listItem}>
           <CustomDropdown
+            key={item.id}
             noLiPadding
             navDropdown
-            buttonText={item.name}
+            buttonText={item.href}
             buttonProps={{
               className: classes.navLink,
               color: "transparent"
             }}
             buttonIcon={Apps}
-            dropdownList={item.dropdownList}
+            dropdownList={item.children}
           />
         </ListItem>
       ))}

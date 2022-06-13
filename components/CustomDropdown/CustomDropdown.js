@@ -11,7 +11,6 @@ import MenuList from "@material-ui/core/MenuList";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import Paper from "@material-ui/core/Paper";
 import Grow from "@material-ui/core/Grow";
-import Divider from "@material-ui/core/Divider";
 import Icon from "@material-ui/core/Icon";
 import Popper from "@material-ui/core/Popper";
 
@@ -87,8 +86,10 @@ export default function CustomDropdown(props) {
 
   const handleRouteToPage = (e, path) => {
     e.preventDefault();
+    console.log(path);
     router.push(path);
   };
+  console.log("buttonText", buttonText);
   return (
     <div>
       <div>
@@ -98,7 +99,8 @@ export default function CustomDropdown(props) {
           aria-haspopup="true"
           {...buttonProps}
           onClick={handleClick}
-          onDoubleClick={(e) => handleRouteToPage(e, "/contact")}
+          onDoubleClick={(e) =>
+            handleRouteToPage(e, `${buttonText.toLowerCase()}`)}
         >
           {icon}
           {buttonText !== undefined ? buttonText : null}
@@ -146,26 +148,27 @@ export default function CustomDropdown(props) {
                       {dropdownHeader}
                     </MenuItem>
                   ) : null}
-                  {dropdownList.map((prop, key) => {
-                    if (prop.divider) {
-                      return (
-                        <Divider
-                          key={key}
-                          onClick={() => handleClose("divider")}
-                          className={classes.dropdownDividerItem}
-                        />
-                      );
-                    }
+                  {dropdownList.map((prop) => {
+                    console.log("prop", prop);
+                    // if (prop.divider) {
+                    //   return (
+                    //     <Divider
+                    //       key={prop.id}
+                    //       onClick={() => handleClose("divider")}
+                    //       className={classes.dropdownDividerItem}
+                    //     />
+                    //   );
+                    // }
                     return (
                       <MenuItem
-                        key={key}
+                        key={prop.id}
                         onClick={() => handleClose(prop)}
                         className={dropdownItem}
                       >
                         {/* {prop} */}
-                        <Link href="/contact">
+                        <Link href={prop.href}>
                           {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                          <a className={classes.dropdownLink}>{prop}</a>
+                          <a className={classes.dropdownLink}>{prop.title}</a>
                         </Link>
                       </MenuItem>
                     );
@@ -197,7 +200,7 @@ CustomDropdown.propTypes = {
   ]),
   buttonText: PropTypes.node.isRequired,
   buttonIcon: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  dropdownList: PropTypes.array,
+  // dropdownList: PropTypes.array,
   buttonProps: PropTypes.object,
   dropup: PropTypes.bool,
   dropdownHeader: PropTypes.node,

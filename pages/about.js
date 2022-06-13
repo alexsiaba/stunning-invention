@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import Head from "next/head";
 import About from "../components/About";
 import brand from "../public/text/brand";
@@ -9,12 +9,12 @@ export default function AboutFn() {
       <Head>
         <title>
           {brand.architect.name}
-          &nbsp; - Contact
+          &nbsp; - About
         </title>
       </Head>
-      <div className={classes.mainWrap}>
+      <main>
         <About />
-      </div>
+      </main>
     </>
   );
 }
