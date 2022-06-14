@@ -397,14 +397,14 @@
 // };
 //
 // export default withTranslation(["common"])(Header);
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // nodejs library to set properties for components
 import PropTypes from "prop-types";
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
@@ -414,14 +414,19 @@ import Drawer from "@material-ui/core/Drawer";
 // @material-ui/icons
 import Menu from "@material-ui/icons/Menu";
 // core components
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 import styles from "./header-style";
+import MobileMenu from "./MobileMenu";
 
 const useStyles = makeStyles(styles);
 
 // eslint-disable-next-line react/function-component-definition
 export default function Header(props) {
   const classes = useStyles();
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const [openDrawer, setOpenDrawer] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   React.useEffect(() => {
     // eslint-disable-next-line react/destructuring-assignment
     if (props.changeColorOnScroll) {
@@ -468,49 +473,57 @@ export default function Header(props) {
       <Button className={classes.title}>{brand}</Button>
     </Link>
   );
+  const handleOpenDrawer = () => {
+    setOpenDrawer(!openDrawer);
+  };
   return (
-    <AppBar className={appBarClasses}>
-      <Toolbar className={classes.container}>
-        {leftLinks !== undefined ? brandComponent : null}
-        <div className={classes.flex}>
-          {leftLinks !== undefined ? (
-            <Hidden smDown implementation="css">
-              {leftLinks}
-            </Hidden>
-          ) : (
-            brandComponent
-          )}
-        </div>
-        <Hidden smDown implementation="css">
-          {rightLinks}
-        </Hidden>
-        <Hidden mdUp>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerToggle}
-          >
-            <Menu />
-          </IconButton>
-        </Hidden>
-      </Toolbar>
-      <Hidden mdUp implementation="js">
-        <Drawer
-          variant="temporary"
-          anchor="right"
-          open={mobileOpen}
-          classes={{
-            paper: classes.drawerPaper,
-          }}
-          onClose={handleDrawerToggle}
-        >
-          <div className={classes.appResponsive}>
-            {leftLinks}
-            {rightLinks}
+    <>
+      {isMobile ? (
+        <MobileMenu open={openDrawer} toggleDrawer={handleOpenDrawer} />
+      ) : null}
+      <AppBar className={appBarClasses}>
+        <Toolbar className={classes.container}>
+          {leftLinks !== undefined ? brandComponent : null}
+          <div className={classes.flex}>
+            {leftLinks !== undefined ? (
+              <Hidden smDown implementation="css">
+                {leftLinks}
+              </Hidden>
+            ) : (
+              brandComponent
+            )}
           </div>
-        </Drawer>
-      </Hidden>
-    </AppBar>
+          <Hidden smDown implementation="css">
+            {rightLinks}
+          </Hidden>
+          <Hidden mdUp>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerToggle}
+            >
+              <Menu />
+            </IconButton>
+          </Hidden>
+        </Toolbar>
+        <Hidden mdUp implementation="js">
+          <Drawer
+            variant="temporary"
+            anchor="right"
+            open={mobileOpen}
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+            onClose={handleDrawerToggle}
+          >
+            <div className={classes.appResponsive}>
+              {leftLinks}
+              {rightLinks}
+            </div>
+          </Drawer>
+        </Hidden>
+      </AppBar>
+    </>
   );
 }
 
