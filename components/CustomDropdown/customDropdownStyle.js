@@ -18,7 +18,7 @@ const customDropdownStyle = (theme) => ({
   popperClose: {
     pointerEvents: "none",
   },
-  pooperNav: {
+  popperNav: {
     [theme.breakpoints.down("sm")]: {
       position: "static !important",
       left: "unset !important",
