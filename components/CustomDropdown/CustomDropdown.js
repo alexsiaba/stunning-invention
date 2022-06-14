@@ -86,7 +86,6 @@ export default function CustomDropdown(props) {
 
   const handleRouteToPage = (e, path) => {
     e.preventDefault();
-    console.log(path);
     router.push(path);
   };
   return (
