@@ -3,7 +3,7 @@ import React from "react";
 import Header from "../Header";
 // eslint-disable-next-line sort-imports
 import Footer from "../Footer";
-import HeaderLinks from "../Header/HeadreLinks";
+import HeaderLinks from "../Header/HeaderLinks";
 
 // eslint-disable-next-line react/prop-types,react/function-component-definition
 export default function Layout({ children }, props) {
