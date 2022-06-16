@@ -58,11 +58,7 @@ export default function HeaderLinks(props) {
             <Grow
               in={Boolean(anchorEl)}
               id="menu-list"
-              style={
-                dropup
-                  ? { transformOrigin: "0 100% 0" }
-                  : { transformOrigin: "0 0 0" }
-              }
+              style={{transformOrigin: `0 ${dropup ? "100%" : "0"} 0`}}
             >
               <Paper className={classes.dropdown}>
                 {children}
