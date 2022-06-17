@@ -460,7 +460,7 @@ export default function Header(props) {
         .classList.remove(classes[changeColorOnScroll.color]);
     }
   };
-  const { color, rightLinks, leftLinks, brand, fixed, absolute } = props;
+  const { color, children, brand, fixed, absolute } = props;
   const appBarClasses = classNames({
     [classes.appBar]: true,
     [classes[color]]: color,
@@ -474,51 +474,39 @@ export default function Header(props) {
   );
 
   return (
-    <>
-      {isMobile ? <MobileMenu />: null}
-      <AppBar className={appBarClasses}>
-        <Toolbar className={classes.container}>
-          {leftLinks !== undefined ? brandComponent : null}
-          <div className={classes.flex}>
-            {leftLinks !== undefined ? (
-              <Hidden smDown implementation="css">
-                {leftLinks}
-              </Hidden>
-            ) : (
-              brandComponent
-            )}
-          </div>
-          <Hidden smDown implementation="css">
-            {rightLinks}
-          </Hidden>
-          <Hidden mdUp>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={handleDrawerToggle}
-            >
-              <Menu />
-            </IconButton>
-          </Hidden>
-        </Toolbar>
-        <Hidden mdUp implementation="js">
-          <Drawer
-            variant="temporary"
-            anchor="right"
-            open={mobileOpen}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-            onClose={handleDrawerToggle}
-          >
-            <div className={classes.appResponsive}>
-              {leftLinks}
-              {rightLinks}
-            </div>
-          </Drawer>
+    <AppBar className={appBarClasses}>
+      <Toolbar className={classes.container}>
+        <div className={classes.flex}>
+          {brandComponent}
+        </div>
+        <Hidden smDown implementation="css">
+          {children}
         </Hidden>
-      </AppBar>
-    </>
+        <Hidden mdUp>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerToggle}
+          >
+            <Menu />
+          </IconButton>
+        </Hidden>
+      </Toolbar>
+      <Hidden mdUp implementation="js">
+        <Drawer
+          variant="temporary"
+          anchor="right"
+          open={mobileOpen}
+          classes={{paper: classes.drawerPaper}}
+          onClose={handleDrawerToggle}
+        >
+          <div className={classes.appResponsive}>
+            {children}
+          </div>
+        </Drawer>
+      </Hidden>
+    </AppBar>
+
   );
 }
 
@@ -540,9 +528,7 @@ Header.propTypes = {
     "dark",
   ]),
   // eslint-disable-next-line react/require-default-props
-  rightLinks: PropTypes.node,
-  // eslint-disable-next-line react/require-default-props
-  leftLinks: PropTypes.node,
+  children: PropTypes.node,
   // eslint-disable-next-line react/require-default-props
   brand: PropTypes.string,
   // eslint-disable-next-line react/require-default-props
