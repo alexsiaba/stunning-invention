@@ -9,8 +9,6 @@ import {
   successColor, warningBoxShadow, warningColor
 } from "../nextjs-material-kit";
 
-// import tooltip from "styles/jss/nextjs-material-kit/tooltipsStyle.js";
-
 const headerLinksStyle = (theme) => ({
   list: {
     ...defaultFont,

@@ -13,7 +13,7 @@ export default function Layout({ children }, props) {
     <div>
       <Header
         brand="BRAND"
-        rightLinks={<HeaderLinks />}
+        children={<HeaderLinks />}
         fixed
         color="transparent"
         changeColorOnScroll={{
