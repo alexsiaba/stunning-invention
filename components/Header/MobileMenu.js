@@ -12,7 +12,6 @@ import menu from "./menu";
 const MobileMenu = function (props) {
   const classes = useStyles();
   const { toggleDrawer, open, t } = props;
-  console.log("menu.children", menu.children);
   const SideList = function () {
     return (
       <div

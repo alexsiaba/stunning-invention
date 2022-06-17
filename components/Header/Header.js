@@ -425,7 +425,6 @@ export default function Header(props) {
   const classes = useStyles();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  const [openDrawer, setOpenDrawer] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   React.useEffect(() => {
     // eslint-disable-next-line react/destructuring-assignment
@@ -473,14 +472,10 @@ export default function Header(props) {
       <Button className={classes.title}>{brand}</Button>
     </Link>
   );
-  const handleOpenDrawer = () => {
-    setOpenDrawer(!openDrawer);
-  };
+
   return (
     <>
-      {isMobile ? (
-        <MobileMenu open={openDrawer} toggleDrawer={handleOpenDrawer} />
-      ) : null}
+      {isMobile ? <MobileMenu />: null}
       <AppBar className={appBarClasses}>
         <Toolbar className={classes.container}>
           {leftLinks !== undefined ? brandComponent : null}
