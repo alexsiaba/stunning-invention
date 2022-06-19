@@ -416,7 +416,6 @@ import Menu from "@material-ui/icons/Menu";
 // core components
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import styles from "./header-style";
-import MobileMenu from "./MobileMenu";
 
 const useStyles = makeStyles(styles);
 
@@ -476,9 +475,7 @@ export default function Header(props) {
   return (
     <AppBar className={appBarClasses}>
       <Toolbar className={classes.container}>
-        <div className={classes.flex}>
-          {brandComponent}
-        </div>
+        <div className={classes.flex}>{brandComponent}</div>
         <Hidden smDown implementation="css">
           {children}
         </Hidden>
@@ -497,16 +494,13 @@ export default function Header(props) {
           variant="temporary"
           anchor="right"
           open={mobileOpen}
-          classes={{paper: classes.drawerPaper}}
+          // classes={{paper: classes.drawerPaper}}//mobile menu scrool working without this class or need to refactor classes.drawerPaper
           onClose={handleDrawerToggle}
         >
-          <div className={classes.appResponsive}>
-            {children}
-          </div>
+          <div className={classes.appResponsive}>{children}</div>
         </Drawer>
       </Hidden>
     </AppBar>
-
   );
 }
 
