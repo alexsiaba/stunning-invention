@@ -50,7 +50,6 @@ const Landing = function (props) {
   const theme = useTheme();
   const isTablet = useMediaQuery(theme.breakpoints.down("md"));
   const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
-  const { onToggleDark, onToggleDir } = props;
   return (
     <>
       <Head>
@@ -61,10 +60,6 @@ const Landing = function (props) {
       </Head>
       <CssBaseline />
       <div className={classes.mainWrap}>
-        {/* <Header */}
-        {/*    onToggleDark={onToggleDark} */}
-        {/*    onToggleDir={onToggleDir} */}
-        {/* /> */}
         <main className={classes.containerWrap}>
           <section id="home">
             <VideoBanner />

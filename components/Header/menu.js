@@ -1,11 +1,12 @@
 // eslint-disable-next-line max-classes-per-file
 class MenuItem {
   constructor(href, title, children) {
+    this.id = MenuItem.getPageId(title);
     this.href = href;
     this.title = title;
-    this.id = (href + title).toLowerCase().replace("", "-");
     this.children = children;
   }
+  static getPageId(title) {return title.toLowerCase().replaceAll(" ", "-");}
 }
 
 class Node {
@@ -24,14 +25,14 @@ const pages = [
   new Node("basic", "Testimonials", "About"),
   new Node("basic", "COVID-19", "About"),
   // House Cleaning Services
-  new Node("basic", "House Cleaning Services", "index"),
-  new Node("basic", "Vacation Home Services", "House Cleaning Services"),
-  new Node("basic", "Carpet Cleaning Services", "House Cleaning Services"),
-  new Node("basic", "Snow Removal Services", "House Cleaning Services"),
-  new Node("basic", "Handyman Services", "House Cleaning Services"),
-  new Node("basic", "Laundry Services", "House Cleaning Services"),
-  new Node("basic", "Move Out Cleaning", "House Cleaning Services"),
-  new Node("basic", "Post Construction Cleaning", "House Cleaning Services"),
+  new Node("services", "House Cleaning Services", "index"),
+  new Node("services", "Vacation Home Services", "House Cleaning Services"),
+  new Node("services", "Carpet Cleaning Services", "House Cleaning Services"),
+  new Node("services", "Snow Removal Services", "House Cleaning Services"),
+  new Node("services", "Handyman Services", "House Cleaning Services"),
+  new Node("services", "Laundry Services", "House Cleaning Services"),
+  new Node("services", "Move Out Cleaning", "House Cleaning Services"),
+  new Node("services", "Post Construction Cleaning", "House Cleaning Services"),
   // Commercial Cleaning Services
   new Node("basic", "Commercial Cleaning Services", "index"),
   new Node("basic", "Janitorial Services", "Commercial Cleaning Services"),
@@ -49,7 +50,7 @@ const buildMenu = (pages) => {
   const indexPage = pages[0];
   const root = new MenuItem(indexPage.type, indexPage.title, []);
   const findParent = (root, node) => {
-    if (root.title === node.parent) {
+    if (root.id === MenuItem.getPageId(node.parent)) {
       return root;
     }
     for (const child of root.children) {
@@ -58,12 +59,15 @@ const buildMenu = (pages) => {
         return parent;
       }
     }
-
     return null;
   };
   pages.slice(1).forEach((page) => {
     const parent = findParent(root, page);
-    parent.children.push(new MenuItem(page.type, page.title, []));
+    if (parent) {
+      parent.children.push(new MenuItem(page.type, page.title, []));
+    } else {
+      console.log(page, "does not have a parent")
+    }
   });
   return root;
 };
