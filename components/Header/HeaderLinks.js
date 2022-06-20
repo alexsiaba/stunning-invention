@@ -1,5 +1,5 @@
 /*eslint-disable*/
-import React, {useState} from "react";
+import React from "react";
 import Link from "next/link";
 
 // @material-ui/core components
@@ -17,17 +17,19 @@ import MenuList from "@material-ui/core/MenuList";
 import Paper from "@material-ui/core/Paper";
 import Grow from "@material-ui/core/Grow";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
-import clsx from "clsx";
 import ListItemText from "@material-ui/core/ListItemText";
 import {ExpandMore} from "@material-ui/icons";
+import {useRouter} from "next/router";
 
 export default function HeaderLinks() {
   const classes = makeStyles(styles)();
   const isMobile = useMediaQuery(useTheme().breakpoints.down("sm"));
+  const router = useRouter();
+  const sendToRouter = node => ev => ev.target.id === node.id && router.push(`/${node.href}`, `/${node.id}`, {node})
 
   const renderDesktop = (level, children, node) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const onClick = sendToRouter(node);
     switch (level) {
       case 0:
         return <List className={classes.list}>{children}</List>;
@@ -36,15 +38,14 @@ export default function HeaderLinks() {
           className: classes.navLink,
           color: "inherit"
         };
-        const onClick = _ => console.log("send to the element's url");
-        let button = <Button {...buttonProps} {...{onClick}}>{node.title}</Button>;
+        let button = <Button {...buttonProps} {...{onClick}} id={node.id}>{node.title}</Button>;
 
         if (children.length) {
           const onMouseEnter = event => setAnchorEl(event.currentTarget);
           const onMouseLeave = _ => setAnchorEl(null);
           const caretClasses = classNames({[classes.caret]: true, [classes.caretActive]: Boolean(anchorEl)});
           button = <Button {...buttonProps} {...{onClick, onMouseEnter, onMouseLeave}}>
-            {node.title} <b className={caretClasses}/>
+            <span id={node.id}>{node.title}</span> <b className={caretClasses}/>
             <Popper
                 open={Boolean(anchorEl)}
                 anchorEl={anchorEl}
@@ -72,11 +73,9 @@ export default function HeaderLinks() {
         return <ListItem className={classes.listItem}>{button}</ListItem>;
       case 2:
         const dropdownItem = classNames({[classes.dropdownItem]: true});
-        return <MenuList role="menu" className={classes.menuList}>
-          <MenuItem className={dropdownItem} key={node.id}>
-            <Link href={node.href}>
-              <a className={classes.dropdownLink}>{node.title}</a>
-            </Link>
+        return <MenuList role="menu" className={classes.menuList} key={node.id}>
+          <MenuItem className={dropdownItem}>
+            <span {...{onClick}} id={node.id}>{node.title}</span>
           </MenuItem>
         </MenuList>
     }
@@ -86,10 +85,8 @@ export default function HeaderLinks() {
     const [anchorEl, setAnchorEl] = React.useState(null);
     switch (level) {
       case 0:
-        console.log("children", 0, children)
         return <List component="nav">{children}</List>
       case 1:
-        console.log("children", 1, children)
         return (
             <Accordion>
               <AccordionSummary  expandIcon={<ExpandMore />}>
@@ -104,7 +101,6 @@ export default function HeaderLinks() {
             </Accordion>
         )
       case 2:
-        console.log("children", 2, children)
         return (
             <ListItem
                 button
